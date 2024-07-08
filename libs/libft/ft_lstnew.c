@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_char.c                                    :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:48:54 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/03/28 14:13:32 by mjakowic         ###   ########.fr       */
+/*   Created: 2024/07/08 13:40:07 by dtoszek           #+#    #+#             */
+/*   Updated: 2024/07/08 15:17:40 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_print_char(int c)
+t_list	*ft_lstnew(void *content)
 {
-	write(1, &c, 1);
-	return (1);
+	t_list	*new_node;
+
+	new_node = ft_calloc(1, sizeof(t_list));
+	if (!new_node)
+		return (NULL);
+	new_node -> content = content;
+	new_node -> next = NULL;
+	return (new_node);
 }

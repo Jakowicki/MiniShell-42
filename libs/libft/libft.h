@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:11:26 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/06/20 17:52:53 by mjakowic         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:17:44 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <unistd.h>
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
 typedef struct s_file
 {
@@ -87,5 +93,15 @@ char				*ft_substr_gnl(char const *s, unsigned int start,
 char				*ft_strdup_gnl(const char *s1);
 char				*ft_strjoin_gnl(char const *s1, char const *s2);
 char				*ft_strchr_gnl(const char *s, int c);
+t_list	*ft_lstnew(void *content);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+int		ft_lstsize(t_list *lst);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+int ft_isspace(char c);
 
 #endif
