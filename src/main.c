@@ -16,7 +16,8 @@ int main(int argc, char **argv, char **env)
 {
 	((void)argc, (void)argv);
     ft_init_minishell(env);
-	while(1){
+	while(1)
+	{
     	g_minishell.line = readline(PROMPT);
 		if(!g_minishell.line)
 			(ft_clean_ms(),
@@ -26,6 +27,14 @@ int main(int argc, char **argv, char **env)
 		g_minishell.tokens = ft_tokenize();
 		if (!g_minishell.tokens)
 			continue ;
+		g_minishell.ast = ft_parse();
+		if (g_minishell.parse_err.type)
+		{
+			ft_handle_parse_err();
+			continue ;
+		}
+
 	}
-    return (0);
+	ft_garbage_collector(NULL, true);
+    return (ft_clean_ms(), g_minishell.exit_s);
 }
