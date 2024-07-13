@@ -56,23 +56,23 @@ typedef struct s_err
 
 typedef struct s_path
 {
-	t_err	err;
-	char	*path;
+	t_err		err;
+	char		*path;
 }	t_path;
 
 typedef struct s_minishell
 {
-	char		*line;
-	t_token		*tokens;
-	t_token		*curr_token;
-	t_node		*ast;
-	t_parse_err	parse_err;
-	char		**enviro;
-	t_env		*envlst;
-	int			stdin;
-	int			stdout;
+	char			*line;
+	t_token			*tokens;
+	t_token			*curr_token;
+	t_node			*ast;
+	t_parse_err		parse_err;
+	char			**enviro;
+	t_env			*envlst;
+	int				stdin;
+	int				stdout;
 	struct termios	original_term;
-	int			exit_s;
+	int				exit_s;
 } t_minishell;
 
 extern t_minishell	g_minishell;
