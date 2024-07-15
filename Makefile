@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I inc
 LIBFT = libs/libft/libft.a
 LIBS = $(LIBFT) $(FT_PRINTF) -lreadline -lm -g
-SRCS = $(wildcard *.c)
+SRCS = $(wildcard src/*.c)
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

@@ -1,40 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/15 15:43:46 by dtoszek           #+#    #+#             */
+/*   Updated: 2024/07/15 16:15:21 by dtoszek          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-t_minishell	g_minishell;
-
-static void		ft_init_minishell(char **env)
+static void ft_minishell_loop(t_content *minishell)
 {
-	ft_memset(&g_minishell, 0, sizeof(t_minishell));
-	g_minishell.enviro = env;
-	ft_init_envlst();
-	g_minishell.stdin = dup(0);
-	g_minishell.stdout = dup(1);
-	tcgetattr(STDIN_FILENO, &g_minishell.original_term);
+	while (1)
+	{
+		minishell->line = readline(PROMPT);
+		if (minishell->line == NULL || !strcmp(minishell->line, "exit"))
+		{
+			printf("exit");
+			exit(0);
+		}
+		if (minishell->line)
+			add_history(minishell->line);
+		minishell->tokens = ft_tokens(&minishell);
+		
+	}
+
 }
+
+static void ft_init_minishell(t_content *minishell)
+{
+	(void)minishell;
+}
+
 
 int main(int argc, char **argv, char **env)
 {
-	((void)argc, (void)argv);
-    ft_init_minishell(env);
-	while(1)
-	{
-    	g_minishell.line = readline(PROMPT);
-		if(!g_minishell.line)
-			(ft_clean_ms(),
-				ft_pustr_fd("exit\n", 1), exit(g_minishell.exit_s));
-		if(g_minishell.line[0])
-			add_history(g_minishell.line);
-		g_minishell.tokens = ft_tokenize();
-		if (!g_minishell.tokens)
-			continue ;
-		g_minishell.ast = ft_parse();
-		if (g_minishell.parse_err.type)
-		{
-			ft_handle_parse_err();
-			continue ;
-		}
+	t_content minishell;
 
-	}
-	ft_garbage_collector(NULL, true);
-    return (ft_clean_ms(), g_minishell.exit_s);
+	((void)argv, (void)argc, (void)env);
+	ft_init_minishell(&minishell);
+	ft_minishell_loop(&minishell);
+
+	return (0);
 }
