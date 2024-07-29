@@ -1,0 +1,3 @@
+cc cd.c echo.c env.c main.c pwd.c Utils/is_an_env.c Utils/mdenv_add.c ../../libs/libft/libft.a -lreadline
+
+

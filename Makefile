@@ -1,11 +1,21 @@
-NAME = MiniShell
+makeNAME = MiniShell
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I inc
 LIBFT = libs/libft/libft.a
 LIBS = $(LIBFT) $(FT_PRINTF) -lreadline -lm -g
-SRCS = $(wildcard src/*.c)
-OBJS = $(SRCS:.c=.o)
+Files =		src/main \
+ 					src/tokens/tokens \
+					src/tokens/token_handl \
+					src/tokens/token_util \
+					src/tokens/token_list_ft \
+					src/parse/parse_nodes \
+					src/parse/parse_text \
+					src/parse/parse \
+					src/parse/parse_utils \
+
+SRCS = $(Files:%=%.c)
+OBJS = $(Files:%=%.o)
 
 all: $(NAME)
 
