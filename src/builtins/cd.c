@@ -69,10 +69,9 @@ static int	update_oldpwd(t_content *minishell)
 
 static int	go_to_path(int option, t_content *minishell)
 {
-	t_env	*env;
 	int		ret;
 	char	*env_path;
-	env = minishell->enviroment;
+
 	env_path = NULL;
 	if (option == 0)
 	{

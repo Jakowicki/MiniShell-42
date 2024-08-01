@@ -12,87 +12,70 @@
 
 #include "../../includes/minishell.h"
 
-#include "../../includes/minishell.h"
-
-int	ft_check_redirection(t_node *node)
+static void
+	ft_exec_pipe_child(t_node *node, int pfds[2], 
+					int direction, t_content *minishell)
 {
-	t_io_node	*tmp_io;
-	int			tmp_status;
+	int	status;
 
-	tmp_io = node->io_node;
-	while (tmp_io)
+	if (direction == 1)
 	{
-		if (tmp_io->type == E_OUT
-			&& ft_out(tmp_io, &tmp_status) != ENO_SUCCESS)
-			return (tmp_status);
-		else if (tmp_io->type == E_IN
-			&& ft_in(tmp_io, &tmp_status) != ENO_SUCCESS)
-			return (tmp_status);
-		else if (tmp_io->type == E_APPEND
-			&& ft_append(tmp_io, &tmp_status) != ENO_SUCCESS)
-			return (tmp_status);
-		else if (tmp_io->type == E_HEREDOC)
-			(dup2(tmp_io->here_doc, 0), close(tmp_io->here_doc));
-		tmp_io = tmp_io->next;
+		close(pfds[0]);
+		dup2(pfds[1], STDOUT_FILENO);
+		close(pfds[1]);
 	}
-	return (ENO_SUCCESS);
+	else if (direction == 2)
+	{
+		close(pfds[1]);
+		dup2(pfds[0], STDIN_FILENO);
+		close(pfds[0]);
+	}
+	status = ft_exec_node(node, true, minishell);
+	exit(status);
 }
 
-void	ft_reset_stds(bool is_piped, t_content *minishell)
+int	ft_get_exit_status(int status)
 {
-	if (is_piped)
-		return ;
-	dup2(minishell->stdin, 0);
-	dup2(minishell->stdout, 1);
+	if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	return (WEXITSTATUS(status));
 }
 
-static int	ft_exec_child(t_node *node, t_content *minishell)
+static	int	ft_exec_pipeline(t_node *tree, t_content *minishell)
 {
-	t_path	path_status;
-	int		tmp_status;
-	int		fork_pid;
+	int	status;
+	int	pfds[2];
+	int	pid_l;
+	int	pid_r;
 
 	md_signal.signint_child = true;
-	fork_pid = fork();
-	if (!fork_pid)
+	pipe(pfds);
+	pid_l = fork();
+	if (!pid_l)
+		ft_exec_pipe_child(tree->left, pfds, 1, minishell);
+	else
 	{
-		tmp_status = ft_check_redirection(node);
-		if (tmp_status != ENO_SUCCESS)
-			exit(ENO_GENERAL);
-		path_status = ft_get_path((node -> expand_args)[0], minishell);
-		if (path_status.err.no != ENO_SUCCESS)
+		pid_r = fork();
+		if (!pid_r)
+			ft_exec_pipe_child(tree->right, pfds, 2, minishell);
+		else
 		{
-			tmp_status = ft_err_msg(path_status.err);
-			(exit(tmp_status));
+			(close(pfds[0]), close(pfds[1]),
+				waitpid(pid_l, &status, 0), waitpid(pid_r, &status, 0));
+			md_signal.signint_child = false;
+			return (ft_get_exit_status(status));
 		}
-		if (execve(path_status.path, node -> expand_args,
-				minishell->envir) == -1)
-			(exit(1));
 	}
-	waitpid(fork_pid, &tmp_status, 0);
-	md_signal.signint_child = false;
-	return (ft_get_exit_status(tmp_status));
+	return (ENO_GENERAL);
 }
 
-
-
-int	ft_exec_simple_cmd(t_node *node, bool is_piped, t_content *minishell)
+int	ft_exec_node(t_node *tree, bool is_piped, t_content *minishell)
 {
-	int		tmp_status;
-	
-	if (!node->expand_args)
-	{
-		tmp_status = ft_check_redirection(node);
-		return (ft_reset_stds(is_piped, minishell), (tmp_status && 1));
-	}
-	else if (ft_is_builtin((node->expand_args)[0]))
-	{
-		tmp_status = ft_check_redirection(node);
-		if (tmp_status != ENO_SUCCESS)
-			return (ft_reset_stds(is_piped, minishell), tmp_status);
-		tmp_status = ft_exec_builtin(node->expand_args, minishell);
-		return (ft_reset_stds(is_piped, minishell), tmp_status);
-	}
+	if (!tree)
+		return (1);
+	if (tree->type == E_PIPE)
+		return (ft_exec_pipeline(tree, minishell));
 	else
-		return (ft_exec_child(node, minishell));
+		return (ft_exec_simple_cmd(tree, is_piped, minishell));
+	return (ENO_GENERAL);
 }
