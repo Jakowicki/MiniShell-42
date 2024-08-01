@@ -6,16 +6,32 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:43:46 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/07/23 14:08:24 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/01 18:33:34 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+t_singals md_signal;
+
+static void	ft_start_exec(t_content *minishell)
+{
+	signal(SIGQUIT, ft_sigquit_handler);
+	ft_init_tree(minishell, minishell->parsed);
+	if (md_signal.heredoc_sigint)
+	{
+		//ft_clear_parse(&minishell->parsed);
+		md_signal.heredoc_sigint = false;
+	}
+	minishell->exit_state = ft_exec_node(minishell->parsed, false, minishell);
+	//ft_clear_parse(&minishell->parsed);
+}
+
 static void ft_minishell_loop(t_content *minishell)
 {
 	while (1)
 	{
+		ft_init_signals(minishell);
 		minishell->line = readline(PROMPT);
 		if (minishell->line == NULL || !strcmp(minishell->line, "exit"))
 		{
@@ -29,26 +45,22 @@ static void ft_minishell_loop(t_content *minishell)
 		if (!minishell->tokens)
 			continue ;
 		minishell->parsed = ft_parse(minishell);
-		while (minishell->parsed)
-		{
-			if (minishell->parsed)
-				printf("%s | %d\n", minishell->parsed->args, minishell->parsed->type);
-			if (minishell->parsed->left)
-				printf("%s | %d\n", minishell->parsed->left->args, minishell->parsed->left->type);
-			if (minishell->parsed->right)
-				printf("%s | %d\n", minishell->parsed->right->args, minishell->parsed->right->type);
-			printf("\n\n");
-			minishell->parsed = minishell->parsed->left;
-		}
-		
+		ft_start_exec(minishell);
 	}
 
 }
 
-static void ft_init_minishell(t_content *minishell)
+static void ft_init_minishell(t_content *minishell, char **env)
 {
 	(void)minishell;
 	minishell->error = 0;
+	minishell->envir = env;
+	minishell->enviroment = NULL;
+	ft_init_env(minishell);
+	minishell->stdin = dup(0);
+	minishell->stdout = dup(1);
+	tcgetattr(STDIN_FILENO, &minishell->terminal);
+
 }
 
 
@@ -57,7 +69,7 @@ int main(int argc, char **argv, char **env)
 	t_content minishell;
 
 	((void)argv, (void)argc, (void)env);
-	ft_init_minishell(&minishell);
+	ft_init_minishell(&minishell, env);
 	ft_minishell_loop(&minishell);
 	
 	return (0);

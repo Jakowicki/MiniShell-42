@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_exec_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 21:05:39 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/08/01 18:24:05 by dtoszek          ###   ########.fr       */
+/*   Created: 2024/08/01 16:47:38 by dtoszek           #+#    #+#             */
+/*   Updated: 2024/08/01 18:17:26 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int md_pwd()
+int	ft_get_exit_status(int status)
 {
-    char cwd[PATH_MAX];
+	if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	return (WEXITSTATUS(status));
+}
 
-    if(getcwd(cwd, PATH_MAX))
-    {
-        ft_putendl_fd(cwd, 1);
-        return (1);
-    }
-    else
-        return (0);
+int	ft_exec_node(t_node *tree, bool is_piped, t_content *minishell)
+{
+
+	if (!tree)
+		return (1);
+	return (ft_exec_simple_cmd(tree, is_piped, minishell));
 }

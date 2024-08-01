@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:38:27 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/07/16 16:23:25 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/07/23 14:37:20 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	ft_handle_separator(char **line, t_token **tokens)
 		return (ft_create_add_separator(T_DLESS, line, tokens));
 	else if (!ft_strncmp(*line, ">>", 2))
 		return (ft_create_add_separator(T_DGREAT, line, tokens));
-	else if (!ft_strncmp(*line, "<", 2))
+	else if (!ft_strncmp(*line, "<", 1))
 		return (ft_create_add_separator(T_LESS, line, tokens));
-	else if (!ft_strncmp(*line, ">", 2))
+	else if (!ft_strncmp(*line, ">", 1))
 		return (ft_create_add_separator(T_GREAT, line, tokens));
 	else 
 		return (ft_create_add_separator(T_PIPE, line, tokens));

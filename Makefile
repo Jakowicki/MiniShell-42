@@ -1,10 +1,11 @@
-makeNAME = MiniShell
+NAME = MiniShell
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I inc
 LIBFT = libs/libft/libft.a
 LIBS = $(LIBFT) $(FT_PRINTF) -lreadline -lm -g
 Files =		src/main \
+					src/main_signals \
  					src/tokens/tokens \
 					src/tokens/token_handl \
 					src/tokens/token_util \
@@ -13,6 +14,26 @@ Files =		src/main \
 					src/parse/parse_text \
 					src/parse/parse \
 					src/parse/parse_utils \
+					src/builtins/env \
+					src/builtins/env_ut \
+					src/builtins/cd \
+					src/builtins/echo \
+					src/builtins/pwd \
+					src/builtins/unset \
+					src/exec/init_tree \
+					src/exec/exec_builtin \
+					src/exec/exist_check \
+					src/exec/ft_exec_command \
+					src/exec/ft_exec_node \
+					src/exec/ft_get_path \
+					src/exec/exec_redirect \
+					src/exec/error_msg \
+					src/expander/expand \
+					src/expander/expand_utils \
+					src/expander/ft_clean_empty \
+					src/expander/ft_expander_split \
+					src/expander/strip_quotes \
+					src/expander/heredoc_expander \
 
 SRCS = $(Files:%=%.c)
 OBJS = $(Files:%=%.o)

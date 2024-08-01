@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 12:06:06 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/07/29 14:37:38 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/01 18:23:51 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@
 #define PATH_MAX 4096
 #endif
 
+static int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t i = 0;
+
+	while (s1[i] != '\0' && s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+
 static void print_error(char **as)
 {
 	ft_putstr_fd("cd: ", 2);
@@ -23,7 +37,7 @@ static void print_error(char **as)
 		ft_putstr_fd("string not in pwd: ", 2);
 	else
 	{
-		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(strerror(0), 2);
 		ft_putstr_fd(": ", 2);
 	}
 	ft_putstr_fd(as[1], 2);
