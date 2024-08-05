@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:02:16 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/02 13:23:13 by mjakowic         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:33:23 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*ft_extract_key(char *str)
+char	*ft_extract_key(char *str)
 {
 	int	i;
 
@@ -20,13 +20,13 @@ static char	*ft_extract_key(char *str)
 	while (str[i])
 	{
 		if (str[i] == '=')
-			return (ft_substr(str, 0, i));
+			return (GC_collector(ft_substr(str, 0, i), false));
 		i++;
 	}
 	return (ft_strdup(str));
 }
 
-static char	*ft_extract_value(char *str)
+char	*ft_extract_value(char *str)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ static char	*ft_extract_value(char *str)
 		if (str[i] == '=')
 		{
 			i++;
-			return (ft_substr(str, i, ft_strlen(str) - i));
+			return (GC_collector(ft_substr(str, i, ft_strlen(str) - i), false));
 		}
 		i++;
 	}

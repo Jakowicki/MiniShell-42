@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:24:59 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 15:14:58 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/05 17:46:15 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ int	ft_exec_builtin(char **args, t_content *minishell)
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (md_echo(args));
 	if (ft_strcmp(args[0], "cd") == 0)
-		return (md_cd(args, minishell));
+		return (md_cd(args[1], minishell));
 	if (ft_strcmp(args[0], "env") == 0)
 		return (md_env(minishell));
 	if (ft_strcmp(args[0], "pwd") == 0)
 		return (md_pwd());
 	if (ft_strcmp(args[0], "unset") == 0)
-		return (md_unset(&minishell->enviroment, args));
+		return (md_unset(minishell, args));
+	if (ft_strcmp(args[0], "export") == 0)
+		return (md_export(args, minishell));
+	md_exit(minishell);
 	return (ENO_GENERAL);
 }
 

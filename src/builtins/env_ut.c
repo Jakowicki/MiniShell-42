@@ -6,11 +6,25 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:08:21 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 15:14:45 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/05 17:37:46 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool	ft_env_entry_exists(char *key, t_content *minishell)
+{
+	t_env	*envlst;
+
+	envlst = minishell->enviroment;
+	while (envlst)
+	{
+		if (!ft_strcmp(key, envlst->key))
+			return (true);
+		envlst = envlst->next;
+	}
+	return (false);
+}
 
 static t_env	*ft_envlist_new(char *key, char *value)
 {
@@ -19,9 +33,9 @@ static t_env	*ft_envlist_new(char *key, char *value)
 	new = (t_env *)ft_calloc(1, sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->key = ft_strdup(key);
+	new->key = GC_collector(ft_strdup(key), false);
 	if (value)
-		new->value = ft_strdup(value);
+		new->value = GC_collector(ft_strdup(value), false);
 	new->next = NULL;
 	return (new);
 }
@@ -66,7 +80,7 @@ void	ft_update_env_list(char *key, char *value, bool yes,
 		if (!ft_strcmp(key, envlist->key))
 		{
 			if (value)
-				envlist->value = ft_strdup(value);
+				envlist->value = GC_collector(ft_strdup(value), false);
 			return ;
 		}
 		envlist = envlist->next;

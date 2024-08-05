@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:43:46 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 15:31:11 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/05 18:32:06 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ static void	ft_minishell_loop(t_content *minishell)
 	{
 		ft_init_signals(minishell);
 		minishell->line = readline(PROMPT);
-		if (minishell->line == NULL || !ft_strcmp(minishell->line, "exit"))
+		if (minishell->line == NULL)
 		{
-			free(minishell->line);
-			printf("exit");
-			exit(0);
+			ft_clean_ms(minishell);
+			exit(minishell->exit_state);
 		}
 		if (minishell->line)
 			add_history(minishell->line);
@@ -53,6 +52,7 @@ static void	ft_init_minishell(t_content *minishell, char **env)
 {
 	(void)minishell;
 	minishell->error = 0;
+	minishell->exit_state = 0;
 	minishell->envir = env;
 	minishell->enviroment = NULL;
 	ft_init_env(minishell);
@@ -68,5 +68,6 @@ int	main(int argc, char **argv, char **env)
 	((void)argv, (void)argc, (void)env);
 	ft_init_minishell(&minishell, env);
 	ft_minishell_loop(&minishell);
-	return (0);
+	GC_collector(NULL, true);
+	return (ft_clean_ms(&minishell), minishell.exit_state);
 }

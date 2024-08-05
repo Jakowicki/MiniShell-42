@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:21:38 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/08/05 15:34:07 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/05 17:45:59 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,10 @@ void				ft_init_signals(t_content *minishell);
 int					md_pwd(void);
 int					md_echo(char **as);
 int					md_env(t_content *minishell);
-int					md_cd(char **args, t_content *minishell);
-int					md_unset(t_env **lst, char **key);
+int					md_cd(char *path, t_content *minishell);
+int					md_unset(t_content *minishell, char **args);
+void				md_exit(t_content *minishell);
+int					md_export(char **argv, t_content *minishell);
 t_err				ft_check_exec(char *file, bool cmd);
 int					ft_check_redirection(t_node *node);
 void				ft_reset_stds(bool is_piped, t_content *minishell);
@@ -159,5 +161,10 @@ void				ft_clear_parse(t_node **parse, t_content *minishell);
 void				ft_recursive_clear_parse(t_node *node);
 void				ft_clear_cmd_node(t_node *node);
 void				ft_clear_io_list(t_io_node **lst);
+void    			ft_clean_ms(t_content *minishell);
 void				ft_heredoc(t_io_node *io, int p[2], t_content *minishell);
+void 				*GC_collector(void *list, bool free);
+char				*ft_extract_key(char *str);
+char				*ft_extract_value(char *str);
+bool				ft_env_entry_exists(char *key, t_content *minishell);
 #endif

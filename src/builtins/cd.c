@@ -3,96 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 12:06:06 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/08/02 13:59:35 by mjakowic         ###   ########.fr       */
+/*   Updated: 2024/08/05 18:04:12 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	print_error(char **as)
+static int	ft_change_pwd(t_content *minishell)
 {
-	ft_putstr_fd("cd: ", 2);
-	if (as[2])
-		ft_putstr_fd("string not in pwd: ", 2);
-	else
-	{
-		ft_putstr_fd(strerror(0), 2);
-		ft_putstr_fd(": ", 2);
-	}
-	ft_putstr_fd(as[1], 2);
+	char	*cwd;
+
+	cwd = GC_collector(getcwd(NULL, 0), false);
+	if (!cwd)
+		return (1);
+	return (ft_update_env_list("PWD", cwd, false, minishell), 0);
 }
 
-static char	*get_env_path(t_content *minishell, const char *var)
+static int	ft_cd_home(t_content *minishell)
 {
-	t_env	*envlist;
+	char	*home;
 
-	envlist = minishell->enviroment;
-	while (envlist)
-	{
-		if (!ft_strcmp(var, envlist->key))
-			return (ft_strdup(envlist->value));
-		envlist = envlist->next;
-	}
-	return (NULL);
-}
-
-static int	update_oldpwd(t_content *minishell)
-{
-	char	cwd[PATH_MAX];
-
-	if (getcwd(cwd, PATH_MAX) == NULL)
-		return (0);
-	ft_update_env_list("OLDPWD", cwd, false, minishell);
+	ft_update_env_list("OLDPWD", ft_get_envlst_val("PWD", minishell), false, minishell);
+	home = ft_get_envlst_val("HOME", minishell);
+	if (!home)
+		return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 1);
+	if (chdir(home) == ENO_SUCCESS)
+		return (ft_update_env_list("PWD", home, false, minishell), 0);
 	return (1);
 }
 
-static int	go_to_path(int option, t_content *minishell)
+static int	ft_cd_err_msg(char *err_msg)
 {
-	int		ret;
-	char	*env_path;
-
-	env_path = NULL;
-	if (option == 0)
-	{
-		update_oldpwd(minishell);
-		env_path = get_env_path(minishell, "HOME");
-		if (!env_path)
-			return (ft_putendl_fd("MDshell : cd: HOME not set", 2), -1);
-	}
-	else if (option == 1)
-	{
-		env_path = get_env_path(minishell, "OLDPWD");
-		if (!env_path)
-		{
-			ft_putendl_fd("MDshell : cd: OLDPWD not set", 2);
-			return (-1);
-		}
-		update_oldpwd(minishell);
-	}
-	ret = chdir(env_path);
-	free(env_path);
-	return (ret);
+	ft_putstr_fd("minishell: cd: `", 2);
+	ft_putstr_fd(err_msg, 2);
+	ft_putstr_fd("': No such file or directory\n", 2);
+	return (1);
 }
 
-int	md_cd(char **args, t_content *minishell)
+int	md_cd(char *path, t_content *minishell)
 {
-	int	cd_ret;
-
-	if (!args[1])
-		return (go_to_path(0, minishell));
-	if (ft_strcmp(args[1], "-") == 0)
-		cd_ret = go_to_path(1, minishell);
-	else
-	{
-		update_oldpwd(minishell);
-		cd_ret = chdir(args[1]);
-		if (cd_ret < 0)
-			cd_ret *= -1;
-		if (cd_ret != 0)
-			print_error(args);
-	}
-	return (cd_ret);
+	if (!path)
+		return (ft_cd_home(minishell));
+	if (chdir(path) != ENO_SUCCESS)
+		return (ft_cd_err_msg(path));
+	ft_update_env_list("OLDPWD", ft_get_envlst_val("PWD", minishell), false, minishell);
+	return (ft_change_pwd(minishell));
 }
+

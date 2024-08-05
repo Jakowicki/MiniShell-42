@@ -21,6 +21,8 @@ Files =		src/main \
 					src/builtins/echo \
 					src/builtins/pwd \
 					src/builtins/unset \
+					src/builtins/exit \
+					src/builtins/export \
 					src/exec/init_tree \
 					src/exec/exec_builtin \
 					src/exec/exist_check \
@@ -36,6 +38,7 @@ Files =		src/main \
 					src/expander/ft_expander_split \
 					src/expander/strip_quotes \
 					src/expander/heredoc_expander \
+					src/garbage/garbage_colector \
 
 SRCS = $(Files:%=%.c)
 OBJS = $(Files:%=%.o)
