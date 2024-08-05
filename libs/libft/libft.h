@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:11:26 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/07/18 16:23:57 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:14:19 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ int					ft_isspace(char c);
 void				ft_free_char2(char **tofree);
 void				ft_free_char3(char ***tofree);
 char				*ft_strjoin_with(char const *s1, char const *s2, char c);
+int					ft_strcmp(const char *s1, const char *s2);
 
 #endif

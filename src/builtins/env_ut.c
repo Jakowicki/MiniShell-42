@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_ut.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:08:21 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/02 13:21:07 by mjakowic         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:14:45 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	ft_strcmp(char *s1, char *s2)
-{
-	while ((*s1 && *s2) && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
-}
 
 static t_env	*ft_envlist_new(char *key, char *value)
 {

@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:47:38 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/01 18:17:26 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:11:02 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static	int	ft_exec_pipeline(t_node *tree, t_content *minishell)
 	int	pid_l;
 	int	pid_r;
 
-	md_signal.signint_child = true;
+	g_signal.signint_child = true;
 	pipe(pfds);
 	pid_l = fork();
 	if (!pid_l)
@@ -62,7 +62,7 @@ static	int	ft_exec_pipeline(t_node *tree, t_content *minishell)
 		{
 			(close(pfds[0]), close(pfds[1]),
 				waitpid(pid_l, &status, 0), waitpid(pid_r, &status, 0));
-			md_signal.signint_child = false;
+			g_signal.signint_child = false;
 			return (ft_get_exit_status(status));
 		}
 	}

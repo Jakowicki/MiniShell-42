@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:43:46 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/02 14:08:56 by mjakowic         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:31:11 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void	ft_start_exec(t_content *minishell)
 	ft_init_tree(minishell, minishell->parsed);
 	if (g_signal.heredoc_sigint)
 	{
-		ft_clear_parse(&minishell->parsed);
-		md_signal.heredoc_sigint = false;
+		ft_clear_parse(&minishell->parsed, minishell);
+		g_signal.heredoc_sigint = false;
 	}
 	minishell->exit_state = ft_exec_node(minishell->parsed, false, minishell);
-	ft_clear_parse(&minishell->parsed);
+	ft_clear_parse(&minishell->parsed, minishell);
 }
 
 static void	ft_minishell_loop(t_content *minishell)

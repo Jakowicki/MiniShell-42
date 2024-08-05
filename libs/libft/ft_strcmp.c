@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens.c                                           :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 12:30:05 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 15:43:36 by dtoszek          ###   ########.fr       */
+/*   Created: 2024/08/05 15:13:28 by dtoszek           #+#    #+#             */
+/*   Updated: 2024/08/05 15:29:34 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-t_token	*ft_tokens(t_content *minishell)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char	*line;
-	t_token	*tokens;
+	int	i;
 
-	line = minishell->line;
-	tokens = ft_tokens_handle(line, minishell);
-	free(line);
-	minishell->line = NULL;
-	return (tokens);
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

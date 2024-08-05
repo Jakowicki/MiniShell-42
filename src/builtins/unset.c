@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:57:09 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/02 13:20:30 by mjakowic         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:14:39 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
-	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
 
 int	md_unset(t_env **lst, char **key)
 {

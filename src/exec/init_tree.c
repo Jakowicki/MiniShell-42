@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 02:04:34 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/01 18:05:23 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:10:47 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	ft_leave_leaf(int p[2], int *pid)
 {
 	waitpid(*pid, pid, 0);
 	signal(SIGQUIT, ft_sigquit_handler);
-	md_signal.signint_child = false;
+	g_signal.signint_child = false;
 	close(p[1]);
 	if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
 		return (true);
@@ -37,7 +37,7 @@ static void	ft_init_leaf(t_content *minishell, t_node *node)
 		if (io->type == E_HEREDOC)
 		{
 			pipe(p);
-			md_signal.signint_child = true;
+			g_signal.signint_child = true;
 			pid = (signal(SIGQUIT, SIG_IGN), fork());
 			if (!pid)
 				ft_heredoc(io, p, minishell);
@@ -58,7 +58,7 @@ void	ft_init_tree(t_content *minishell, t_node *node)
 	if (node->type == E_PIPE)
 	{
 		ft_init_tree(minishell, node->left);
-		if (!md_signal.heredoc_sigint)
+		if (!g_signal.heredoc_sigint)
 			ft_init_tree(minishell, node->right);
 	}
 	else

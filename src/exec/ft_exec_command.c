@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:50:06 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/01 18:16:09 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:12:19 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ft_exec_child(t_node *node, t_content *minishell)
 	int		tmp_status;
 	int		fork_pid;
 
-	md_signal.signint_child = true;
+	g_signal.signint_child = true;
 	fork_pid = fork();
 	if (!fork_pid)
 	{
@@ -68,7 +68,7 @@ static int	ft_exec_child(t_node *node, t_content *minishell)
 			(exit(1));
 	}
 	waitpid(fork_pid, &tmp_status, 0);
-	md_signal.signint_child = false;
+	g_signal.signint_child = false;
 	return (ft_get_exit_status(tmp_status));
 }
 

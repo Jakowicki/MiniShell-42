@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:21:38 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/08/02 14:23:57 by mjakowic         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:34:07 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void				ft_heredoc_expander(char *str, int fd,
 						t_content *minishell);
 char				**ft_expander_split(char const *s);
 char				*ft_strip_quotes(char *str);
-void				ft_init_signals(void);
+void				ft_init_signals(t_content *minishell);
 int					md_pwd(void);
 int					md_echo(char **as);
 int					md_env(t_content *minishell);
@@ -155,4 +155,9 @@ int					ft_err_msg(t_err err);
 int					ft_get_exit_status(int status);
 int					ft_exec_node(t_node *tree, bool is_piped,
 						t_content *minishell);
+void				ft_clear_parse(t_node **parse, t_content *minishell);
+void				ft_recursive_clear_parse(t_node *node);
+void				ft_clear_cmd_node(t_node *node);
+void				ft_clear_io_list(t_io_node **lst);
+void				ft_heredoc(t_io_node *io, int p[2], t_content *minishell);
 #endif

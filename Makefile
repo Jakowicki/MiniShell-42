@@ -14,6 +14,7 @@ Files =		src/main \
 					src/parse/parse_text \
 					src/parse/parse \
 					src/parse/parse_utils \
+					src/parse/parse_clr \
 					src/builtins/env \
 					src/builtins/env_ut \
 					src/builtins/cd \
@@ -28,6 +29,7 @@ Files =		src/main \
 					src/exec/ft_get_path \
 					src/exec/exec_redirect \
 					src/exec/error_msg \
+					src/exec/heredoc \
 					src/expander/expand \
 					src/expander/expand_utils \
 					src/expander/ft_clean_empty \

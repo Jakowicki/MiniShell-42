@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 04:47:19 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/02 14:20:17 by mjakowic         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:31:33 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 static void	ft_sigint_handler(int num)
 {
