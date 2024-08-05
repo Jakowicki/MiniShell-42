@@ -93,18 +93,19 @@ char				*ft_substr_gnl(char const *s, unsigned int start,
 char				*ft_strdup_gnl(const char *s1);
 char				*ft_strjoin_gnl(char const *s1, char const *s2);
 char				*ft_strchr_gnl(const char *s, int c);
-t_list	*ft_lstnew(void *content);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-int 	ft_isspace(char c);
-void	ft_free_char2(char **tofree);
-void	ft_free_char3(char ***tofree);
-char	*ft_strjoin_with(char const *s1, char const *s2, char c);
+t_list				*ft_lstnew(void *content);
+void				ft_lstadd_front(t_list **lst, t_list *new);
+int					ft_lstsize(t_list *lst);
+t_list				*ft_lstlast(t_list *lst);
+void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstdelone(t_list *lst, void (*del)(void *));
+void				ft_lstclear(t_list **lst, void (*del)(void *));
+void				ft_lstiter(t_list *lst, void (*f)(void *));
+t_list				*ft_lstmap(t_list *lst,
+						void *(*f)(void *), void (*del)(void *));
+int					ft_isspace(char c);
+void				ft_free_char2(char **tofree);
+void				ft_free_char3(char ***tofree);
+char				*ft_strjoin_with(char const *s1, char const *s2, char c);
 
 #endif

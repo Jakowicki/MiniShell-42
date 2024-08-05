@@ -3,34 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 12:06:06 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/08/01 18:23:51 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/02 13:59:35 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-#ifndef PATH_MAX
-#define PATH_MAX 4096
-#endif
-
-static int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t i = 0;
-
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
-	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
-
-static void print_error(char **as)
+static void	print_error(char **as)
 {
 	ft_putstr_fd("cd: ", 2);
 	if (as[2])
@@ -48,11 +30,10 @@ static char	*get_env_path(t_content *minishell, const char *var)
 	t_env	*envlist;
 
 	envlist = minishell->enviroment;
-	
 	while (envlist)
 	{
-		if(!ft_strcmp(var, envlist->key))
-			return(ft_strdup(envlist->value));
+		if (!ft_strcmp(var, envlist->key))
+			return (ft_strdup(envlist->value));
 		envlist = envlist->next;
 	}
 	return (NULL);
@@ -61,6 +42,7 @@ static char	*get_env_path(t_content *minishell, const char *var)
 static int	update_oldpwd(t_content *minishell)
 {
 	char	cwd[PATH_MAX];
+
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (0);
 	ft_update_env_list("OLDPWD", cwd, false, minishell);
@@ -97,7 +79,7 @@ static int	go_to_path(int option, t_content *minishell)
 
 int	md_cd(char **args, t_content *minishell)
 {
-	int cd_ret;
+	int	cd_ret;
 
 	if (!args[1])
 		return (go_to_path(0, minishell));

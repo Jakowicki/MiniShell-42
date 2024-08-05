@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:36:33 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/07/23 13:50:13 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/02 11:49:27 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_get_next_token(t_content *minishell)
 	minishell->free_token = minishell->free_token->next;
 }
 
-t_io_type ft_get_io_type(t_token_type type)
+t_io_type	ft_get_io_type(t_token_type type)
 {
 	if (type == T_LESS)
 		return (E_IN);
@@ -30,16 +30,16 @@ t_io_type ft_get_io_type(t_token_type type)
 
 int	ft_is_redirector(t_token_type type)
 {
-	if (type == T_LESS || type == T_GREAT
-		|| type == T_DLESS || type == T_DGREAT)
+	if (type == T_LESS || type == T_GREAT || type == T_DLESS
+		|| type == T_DGREAT)
 		return (1);
 	return (0);
 }
 
-bool check_for_pipe_and_token(t_content *minishell)
+bool	check_for_pipe_and_token(t_content *minishell)
 {
 	if (minishell->free_token)
 		if (minishell->free_token->type == T_PIPE)
-		return (true);
+			return (true);
 	return (false);
 }

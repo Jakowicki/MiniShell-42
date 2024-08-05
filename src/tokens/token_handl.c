@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_handl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:38:27 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/07/23 14:37:20 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/02 11:40:30 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_handle_separator(char **line, t_token **tokens)
 		return (ft_create_add_separator(T_LESS, line, tokens));
 	else if (!ft_strncmp(*line, ">", 1))
 		return (ft_create_add_separator(T_GREAT, line, tokens));
-	else 
+	else
 		return (ft_create_add_separator(T_PIPE, line, tokens));
 }
 
@@ -34,7 +34,8 @@ static void	ft_quote_err(char c, t_content *minishell)
 	minishell->exit_state = 258;
 }
 
-static int	ft_handle_identifier(char **line, t_token **tokens, t_content *minishell)
+static int	ft_handle_identifier(char **line, t_token **tokens,
+			t_content *minishell)
 {
 	char	*tmp_line;
 	char	*value;
@@ -79,10 +80,10 @@ t_token	*ft_tokens_handle(char *line, t_content *minishell)
 		if (ft_isspace(*line))
 			ft_skip_spaces(&line);
 		else if (!ft_strncmp(line, "<", 1) || !ft_strncmp(line, ">", 1)
-				|| !ft_strncmp(line, "|", 1))
+			|| !ft_strncmp(line, "|", 1))
 			error = (!ft_handle_separator(&line, &tokens));
 		else
-			error = (!ft_handle_identifier(&line, &tokens, minishell));	
+			error = (!ft_handle_identifier(&line, &tokens, minishell));
 	}
 	return (tokens);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:15:20 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/08/01 17:31:08 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/02 13:21:46 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t i = 0;
+	size_t	i;
 
+	i = 0;
 	while (s1[i] != '\0' && s2[i] != '\0')
 	{
 		if (s1[i] != s2[i])
@@ -25,9 +26,9 @@ static int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-static	int		size_args(char **as)
+static int	size_args(char **as)
 {
-	int		size;
+	int	size;
 
 	size = 0;
 	while (as[size])
@@ -35,10 +36,10 @@ static	int		size_args(char **as)
 	return (size);
 }
 
-int				md_echo(char **as)
+int	md_echo(char **as)
 {
-	int		i;
-	int		n_option;
+	int	i;
+	int	n_option;
 
 	i = 1;
 	n_option = 0;

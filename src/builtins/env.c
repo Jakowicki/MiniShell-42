@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:02:16 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/01 18:24:37 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/02 13:23:13 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static char	*ft_extract_key(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '=')
-			return(ft_substr(str, 0 , i));
+			return (ft_substr(str, 0, i));
 		i++;
 	}
 	return (ft_strdup(str));
@@ -36,21 +36,20 @@ static char	*ft_extract_value(char *str)
 		if (str[i] == '=')
 		{
 			i++;
-			return (ft_substr(str, i , ft_strlen(str) - i));
+			return (ft_substr(str, i, ft_strlen(str) - i));
 		}
 		i++;
 	}
 	return (NULL);
 }
 
-
-void ft_init_env(t_content *minishell)
+void	ft_init_env(t_content *minishell)
 {
-	int i;
-	char **env;
-	char *key;
-	char *value;
-	
+	int		i;
+	char	**env;
+	char	*key;
+	char	*value;
+
 	i = 0;
 	env = minishell->envir;
 	while (env[i])
@@ -62,9 +61,10 @@ void ft_init_env(t_content *minishell)
 	}
 }
 
-int md_env(t_content *minishell)
+int	md_env(t_content *minishell)
 {
-	t_env *replic;
+	t_env	*replic;
+
 	replic = minishell->enviroment;
 	while (replic)
 	{

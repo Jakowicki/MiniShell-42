@@ -15,7 +15,7 @@
 t_token	*ft_new_token(char *str, t_token_type type)
 {
 	t_token	*token;
-	
+
 	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
 		return (NULL);
@@ -35,7 +35,7 @@ void	ft_token_add_back(t_token **tokens, t_token *token)
 	}
 	curr_node = *tokens;
 	while (curr_node && curr_node->next)
-			curr_node = curr_node->next;
+		curr_node = curr_node->next;
 	curr_node->next = token;
 }
 
@@ -52,7 +52,7 @@ void	ft_list_clear(t_token **tokens)
 		free(curr_node->value);
 		next = curr_node->next;
 		free(curr_node);
-		curr_node = next;	
+		curr_node = next;
 	}
 	*tokens = NULL;
 }

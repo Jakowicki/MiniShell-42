@@ -14,8 +14,9 @@
 
 static int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t i = 0;
+	size_t	i;
 
+	i = 0;
 	while (s1[i] != '\0' && s2[i] != '\0')
 	{
 		if (s1[i] != s2[i])
@@ -28,7 +29,7 @@ static int	ft_strcmp(const char *s1, const char *s2)
 int	ft_exec_builtin(char **args, t_content *minishell)
 {
 	if (ft_strcmp(args[0], "echo") == 0)
-		return(md_echo(args));
+		return (md_echo(args));
 	if (ft_strcmp(args[0], "cd") == 0)
 		return (md_cd(args, minishell));
 	if (ft_strcmp(args[0], "env") == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_ut.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:08:21 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/07/31 03:52:48 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/02 13:21:07 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_get_envlst_val(char *key, t_content *minishell)
 static void	ft_envlist_back(t_env *new, t_content *minishell)
 {
 	t_env	*curr;
-	
+
 	if (!minishell->enviroment)
 	{
 		minishell->enviroment = new;
@@ -66,14 +66,14 @@ static void	ft_envlist_back(t_env *new, t_content *minishell)
 }
 
 void	ft_update_env_list(char *key, char *value, bool yes,
-			t_content *minishell)
+		t_content *minishell)
 {
 	t_env	*envlist;
-	
+
 	envlist = minishell->enviroment;
 	while (envlist)
 	{
-		if(!ft_strcmp(key, envlist->key))
+		if (!ft_strcmp(key, envlist->key))
 		{
 			if (value)
 				envlist->value = ft_strdup(value);

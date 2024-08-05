@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 02:54:49 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/01 12:28:50 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/02 10:37:51 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ char	*ft_strjoin_f(char *s1, char *s2)
 
 char	*ft_handle_dollar(char *str, int *i, t_content *minishell)
 {
-	int 	start;
+	int		start;
 	char	*variab;
 	char	*env_value;
 
 	(*i)++;
-	if(ft_isdigit(str[*i]) || str[*i] == '@')
+	if (ft_isdigit(str[*i]) || str[*i] == '@')
 	{
 		(*i)++;
 		return (ft_strdup(""));
@@ -69,7 +69,7 @@ char	*ft_handle_dollar(char *str, int *i, t_content *minishell)
 
 static char	*ft_handle_singqoute(char *str, int *i)
 {
-	int		strt;
+	int	strt;
 
 	strt = *i;
 	(*i)++;
@@ -79,11 +79,11 @@ static char	*ft_handle_singqoute(char *str, int *i)
 	return (ft_substr(str, strt, *i - strt));
 }
 
-static char *ft_handle_expand(char *str, t_content *minishell)
+static char	*ft_handle_expand(char *str, t_content *minishell)
 {
-	char *retur;
-	int	i;
-	
+	char	*retur;
+	int		i;
+
 	retur = ft_strdup("");
 	i = 0;
 	while (str[i])
@@ -91,7 +91,8 @@ static char *ft_handle_expand(char *str, t_content *minishell)
 		if (str[i] == '\'')
 			retur = ft_strjoin_f(retur, ft_handle_singqoute(str, &i));
 		else if (str[i] == '"')
-			retur = ft_strjoin_f(retur, ft_handle_doubqoute(str, &i, minishell));
+			retur = ft_strjoin_f(retur, ft_handle_doubqoute(str, &i,
+						minishell));
 		else if (str[i] == '$')
 			retur = ft_strjoin_f(retur, ft_handle_dollar(str, &i, minishell));
 		else

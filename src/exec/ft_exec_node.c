@@ -13,7 +13,7 @@
 #include "../../includes/minishell.h"
 
 static void
-	ft_exec_pipe_child(t_node *node, int pfds[2], 
+	ft_exec_pipe_child(t_node *node, int pfds[2],
 					int direction, t_content *minishell)
 {
 	int	status;

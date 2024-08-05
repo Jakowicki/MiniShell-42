@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int		ft_create_add_separator(t_token_type type, char **line,
+int	ft_create_add_separator(t_token_type type, char **line,
 		t_token **tokens)
 {
 	t_token	*token;
@@ -33,7 +33,7 @@ void	ft_skip_spaces(char **line)
 		(*line)++;
 }
 
-int		ft_is_separator(char *line)
+int	ft_is_separator(char *line)
 {
 	if (*line == ' ' || *line == '\t' || *line == '<' || *line == '>'
 		|| *line == '|')
@@ -41,7 +41,7 @@ int		ft_is_separator(char *line)
 	return (0);
 }
 
-int		ft_is_quote(char c)
+int	ft_is_quote(char c)
 {
 	if (c == '\'' || c == '"')
 		return (1);

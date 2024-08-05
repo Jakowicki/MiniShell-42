@@ -12,64 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-bool	ft_is_delimiter(char *delimiter, char *str)
-{
-	while (*str)
-	{
-		if (*delimiter == '"' || *delimiter == '\'')
-		{
-			delimiter++;
-			continue ;
-		}
-		else if (*str == *delimiter)
-		{
-			str++;
-			delimiter++;
-		}
-		else
-			return (false);
-	}
-	while (*delimiter == '"' || *delimiter == '\'')
-		delimiter++;
-	return (!*delimiter);
-}
-
-static void	ft_heredoc_sigint_handler(int signum)
-{
-	(void)signum;
-	//ft_clean_ms();
-	exit(SIGINT);
-}
-
-void	ft_heredoc(t_io_node *io, int p[2], t_content *minishell)
-{
-	char	*line;
-	char	*quotes;
-
-	signal(SIGINT, ft_heredoc_sigint_handler);
-	quotes = io->value;
-	while (*quotes && *quotes != '"' && *quotes != '\'')
-		quotes++;
-	while (1)
-	{
-		line = readline("> ");
-		if (!line)
-			break ;
-		if (ft_is_delimiter(io->value, line))
-			break ;
-		if (!quotes)
-			ft_heredoc_expander(line, p[1], minishell);
-		else
-		{
-			ft_putstr_fd(line, p[1]);
-			ft_putstr_fd("\n", p[1]);
-		}
-	}
-	//ft_clean_ms();
-	exit(0);
-}
-
-static bool ft_leave_leaf(int p[2], int *pid)
+static bool	ft_leave_leaf(int p[2], int *pid)
 {
 	waitpid(*pid, pid, 0);
 	signal(SIGQUIT, ft_sigquit_handler);
@@ -110,7 +53,6 @@ static void	ft_init_leaf(t_content *minishell, t_node *node)
 
 void	ft_init_tree(t_content *minishell, t_node *node)
 {
-
 	if (!node)
 		return ;
 	if (node->type == E_PIPE)

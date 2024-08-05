@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_expander.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 12:22:31 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/01 12:29:25 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/02 10:34:03 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	ft_heredoc_expand_writer(char *str, int i, int fd, t_content *minishell)
+static int	ft_heredoc_expand_writer(char *str, int i, int fd,
+		t_content *minishell)
 {
-	int	start;
+	int		start;
 	char	*tmp;
 
 	start = ++i;

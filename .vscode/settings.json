@@ -7,6 +7,8 @@
 		"type_traits": "c",
 		"limits": "c",
 		"new": "c",
-		"typeinfo": "c"
+		"typeinfo": "c",
+		"minishell.h": "c",
+		"libft.h": "c"
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strip_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 04:17:25 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/07/31 04:18:28 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/02 10:37:21 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	ft_unquoted_strlen(char *str)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 	char	quotes;
 
 	i = 0;
@@ -33,7 +33,7 @@ static int	ft_unquoted_strlen(char *str)
 				len += (i++ || 1);
 		}
 		else
-				len += (i++ || 1);
+			len += (i++ || 1);
 	}
 	return (len);
 }
@@ -51,8 +51,8 @@ static void	ft_unquote_filler(char *str, int *i, char *ret, int *j)
 char	*ft_strip_quotes(char *str)
 {
 	char	*ret;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;

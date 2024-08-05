@@ -15,13 +15,13 @@
 bool	ft_is_valid_var_char(char c)
 {
 	if (ft_isalnum(c) || c == '_')
-		return(true);
+		return (true);
 	return (false);
 }
 
-char *ft_normal_string(char *str, int *i)
+char	*ft_normal_string(char *str, int *i)
 {
-	int strt;
+	int	strt;
 
 	strt = *i;
 	while (str[*i] && str[*i] != '\'' && str[*i] != '"' && str[*i] != '$')

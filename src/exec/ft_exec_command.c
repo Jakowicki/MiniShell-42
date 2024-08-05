@@ -72,12 +72,10 @@ static int	ft_exec_child(t_node *node, t_content *minishell)
 	return (ft_get_exit_status(tmp_status));
 }
 
-
-
 int	ft_exec_simple_cmd(t_node *node, bool is_piped, t_content *minishell)
 {
 	int		tmp_status;
-	
+
 	if (!node->expand_args)
 	{
 		tmp_status = ft_check_redirection(node);
