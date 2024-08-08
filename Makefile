@@ -1,4 +1,4 @@
-NAME = MiniShell
+NAME = minishell
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I inc
@@ -15,6 +15,7 @@ Files =		src/main \
 					src/parse/parse \
 					src/parse/parse_utils \
 					src/parse/parse_clr \
+					src/parse/parse_errors \
 					src/builtins/env \
 					src/builtins/env_ut \
 					src/builtins/cd \

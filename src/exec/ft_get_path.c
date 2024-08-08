@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:53:01 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/01 18:19:39 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 17:26:01 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static t_path	ft_get_env_path(char *path, char *cmd)
 	i = 0;
 	while (split_path[i])
 	{
-		cmd_path = ft_strjoin_with_f(
-				ft_strdup(split_path[i]), ft_strdup(cmd), '/');
+		cmd_path = GC_collector(ft_strjoin_with_f(
+				ft_strdup(split_path[i]), ft_strdup(cmd), '/'), false);
 		err = ft_check_exec(cmd_path, true);
 		if (err.no == ENO_SUCCESS)
 			return ((t_path){(t_err){ENO_SUCCESS, 42, cmd_path}, cmd_path});

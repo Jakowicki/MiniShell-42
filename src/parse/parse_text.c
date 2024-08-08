@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:51:21 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/07/23 13:45:32 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 13:28:53 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,21 @@ t_node	*ft_get_text_command(t_content	*minishell)
 {
 	t_node	*node;
 
-	if (minishell->error)
+	if (minishell->parse_error.type)
 		return (NULL);
 	node = get_new_node(E_COMMAND);
 	if (!node)
-		return (NULL);
+		return (ft_parse_err(E_MEMORY, minishell), NULL);
 	while (minishell->free_token && (minishell->free_token->type
 			== T_TEXT || ft_is_redirector(minishell->free_token->type)))
 	{
 		if (minishell->free_token->type == T_TEXT)
 		{
 			if (!ft_join_args(&(node->args), minishell))
-				return (NULL);
+			{
+				ft_clear_cmd_node(node);
+				return (ft_parse_err(E_MEMORY, minishell), NULL);
+			}
 		}
 		else if (ft_is_redirector(minishell->free_token->type))
 		{

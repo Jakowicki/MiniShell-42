@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:47:38 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 15:11:02 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 17:22:51 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void
 		close(pfds[0]);
 	}
 	status = ft_exec_node(node, true, minishell);
-	exit(status);
+	(ft_clean_ms(minishell), exit(status));
 }
 
 int	ft_get_exit_status(int status)

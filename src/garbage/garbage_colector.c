@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 16:44:46 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 17:26:17 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 17:31:07 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*GC_collector(void *list, bool free)
     	}
 }
 
-static void     ft_clear_envlist(t_content *minishell)
+void     ft_clear_envlist(t_content *minishell)
 {
     t_env   *envlist;
     t_env   *envlist_free;

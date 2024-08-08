@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:43:46 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 18:32:06 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 17:30:29 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_start_exec(t_content *minishell)
 	ft_clear_parse(&minishell->parsed, minishell);
 }
 
-static void	ft_minishell_loop(t_content *minishell)
+static int	ft_minishell_loop(t_content *minishell)
 {
 	while (1)
 	{
@@ -35,7 +35,10 @@ static void	ft_minishell_loop(t_content *minishell)
 		minishell->line = readline(PROMPT);
 		if (minishell->line == NULL)
 		{
-			ft_clean_ms(minishell);
+			GC_collector(NULL, true);
+			ft_clear_envlist(minishell);
+   			rl_clear_history();
+    		tcsetattr(STDIN_FILENO, TCSANOW, &minishell->terminal);
 			exit(minishell->exit_state);
 		}
 		if (minishell->line)
@@ -44,8 +47,15 @@ static void	ft_minishell_loop(t_content *minishell)
 		if (!minishell->tokens)
 			continue ;
 		minishell->parsed = ft_parse(minishell);
+		if (minishell->parse_error.type)
+		{
+			ft_ex_parse_err(minishell);
+			continue ;
+		}
 		ft_start_exec(minishell);
 	}
+	GC_collector(NULL, true);
+	return (ft_clean_ms(minishell), minishell->exit_state);
 }
 
 static void	ft_init_minishell(t_content *minishell, char **env)
@@ -55,6 +65,7 @@ static void	ft_init_minishell(t_content *minishell, char **env)
 	minishell->exit_state = 0;
 	minishell->envir = env;
 	minishell->enviroment = NULL;
+	minishell->parse_error.type = 0;
 	ft_init_env(minishell);
 	minishell->stdin = dup(0);
 	minishell->stdout = dup(1);

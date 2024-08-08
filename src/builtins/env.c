@@ -6,7 +6,7 @@
 /*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:02:16 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 17:33:23 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 17:33:37 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,18 @@ int	md_env(t_content *minishell)
 	replic = minishell->enviroment;
 	while (replic)
 	{
+		if (replic->value == NULL)
+		{
+			replic = replic->next;
+			continue ;
+		}
 		printf("%s=%s\n", replic->key, replic->value);
 		replic = replic->next;
 	}
 	if (replic)
-		printf("%s=%s\n", replic->key, replic->value);
+	{
+		if (replic->value != NULL)
+			printf("%s=%s\n", replic->key, replic->value);
+	}
 	return (1);
 }

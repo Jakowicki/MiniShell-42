@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:24:55 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/08/02 14:25:09 by mjakowic         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:35:00 by dtoszek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
+
+typedef enum e_parse_err
+{
+	E_MEMORY = 1,
+	E_SYNTAXERR
+}	t_parse_err;
 
 typedef enum e_node_type
 {
@@ -46,5 +52,11 @@ typedef struct s_node
 	struct s_node		*left;
 	struct s_node		*right;
 }						t_node;
+
+typedef struct s_parse_error
+{
+	t_parse_err	type;
+	char 		*str;
+}	t_parse_error;
 
 #endif
