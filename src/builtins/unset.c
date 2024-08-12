@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:57:09 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 17:17:09 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 19:05:45 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	md_unset(t_content *minishell, char **args)
 		}
 		else
 			ft_unset_helper(
-				GC_collector(ft_extract_key(args[i]), false), minishell);
+				gc_collector(ft_extract_key(args[i]), false), minishell);
 		i++;
 	}
 	return (err);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:19:33 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/08 17:33:54 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 18:54:15 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ int	md_export(char **argv, t_content *minishell)
 		{
 			key = ft_extract_key(argv[i]);
 			if (ft_env_entry_exists(key, minishell))
-				ft_update_env_list(key, 
+				ft_update_env_list(key,
 					ft_extract_value(argv[i]), false, minishell);
 			else
-				ft_update_env_list(key, 
+				ft_update_env_list(key,
 					ft_extract_value(argv[i]), true, minishell);
 		}
 		i++;

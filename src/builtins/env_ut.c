@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_ut.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:08:21 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 17:37:46 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 19:05:05 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static t_env	*ft_envlist_new(char *key, char *value)
 	new = (t_env *)ft_calloc(1, sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->key = GC_collector(ft_strdup(key), false);
+	new->key = gc_collector(ft_strdup(key), false);
 	if (value)
-		new->value = GC_collector(ft_strdup(value), false);
+		new->value = gc_collector(ft_strdup(value), false);
 	new->next = NULL;
 	return (new);
 }
@@ -80,7 +80,7 @@ void	ft_update_env_list(char *key, char *value, bool yes,
 		if (!ft_strcmp(key, envlist->key))
 		{
 			if (value)
-				envlist->value = GC_collector(ft_strdup(value), false);
+				envlist->value = gc_collector(ft_strdup(value), false);
 			return ;
 		}
 		envlist = envlist->next;

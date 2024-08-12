@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 17:12:34 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 17:28:06 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 18:53:32 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	md_exit(t_content *minishell)
 {
-	(ft_clean_ms(minishell), exit(minishell->exit_state));	
+	(ft_clean_ms(minishell), exit(minishell->exit_state));
 }

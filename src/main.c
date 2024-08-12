@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:43:46 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/08 17:30:29 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 19:15:52 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 t_singals	g_signal;
+
+static void	ft_handle_readline_null(t_content *minishell)
+{
+	gc_collector(NULL, true);
+	ft_clear_envlist(minishell);
+	rl_clear_history();
+	tcsetattr(STDIN_FILENO, TCSANOW, &minishell->terminal);
+	exit(minishell->exit_state);
+}
 
 static void	ft_start_exec(t_content *minishell)
 {
@@ -35,11 +44,7 @@ static int	ft_minishell_loop(t_content *minishell)
 		minishell->line = readline(PROMPT);
 		if (minishell->line == NULL)
 		{
-			GC_collector(NULL, true);
-			ft_clear_envlist(minishell);
-   			rl_clear_history();
-    		tcsetattr(STDIN_FILENO, TCSANOW, &minishell->terminal);
-			exit(minishell->exit_state);
+			ft_handle_readline_null(minishell);
 		}
 		if (minishell->line)
 			add_history(minishell->line);
@@ -54,7 +59,7 @@ static int	ft_minishell_loop(t_content *minishell)
 		}
 		ft_start_exec(minishell);
 	}
-	GC_collector(NULL, true);
+	gc_collector(NULL, true);
 	return (ft_clean_ms(minishell), minishell->exit_state);
 }
 
@@ -79,6 +84,6 @@ int	main(int argc, char **argv, char **env)
 	((void)argv, (void)argc, (void)env);
 	ft_init_minishell(&minishell, env);
 	ft_minishell_loop(&minishell);
-	GC_collector(NULL, true);
+	gc_collector(NULL, true);
 	return (ft_clean_ms(&minishell), minishell.exit_state);
 }

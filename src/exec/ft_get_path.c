@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:53:01 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/08 17:26:01 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 18:50:33 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static t_path	ft_get_env_path(char *path, char *cmd)
 	i = 0;
 	while (split_path[i])
 	{
-		cmd_path = GC_collector(ft_strjoin_with_f(
-				ft_strdup(split_path[i]), ft_strdup(cmd), '/'), false);
+		cmd_path = gc_collector(ft_strjoin_with_f(ft_strdup(split_path[i]),
+					ft_strdup(cmd), '/'), false);
 		err = ft_check_exec(cmd_path, true);
 		if (err.no == ENO_SUCCESS)
 			return ((t_path){(t_err){ENO_SUCCESS, 42, cmd_path}, cmd_path});
@@ -68,8 +68,8 @@ t_path	ft_get_path(char *cmd, t_content *minishell)
 	char	*value;
 
 	if (*cmd == '\0')
-		return ((t_path){
-			(t_err){ENO_NOT_FOUND, ERRMSG_CMD_NOT_FOUND, cmd}, NULL});
+		return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_CMD_NOT_FOUND, cmd},
+			NULL});
 	if (ft_strnstr(cmd, "/", ft_strlen(cmd)))
 		return ((t_path){ft_check_exec(cmd, false), cmd});
 	value = ft_get_envlst_val("PATH", minishell);

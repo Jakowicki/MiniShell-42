@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:02:16 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/08 17:33:37 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 19:04:49 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_extract_key(char *str)
 	while (str[i])
 	{
 		if (str[i] == '=')
-			return (GC_collector(ft_substr(str, 0, i), false));
+			return (gc_collector(ft_substr(str, 0, i), false));
 		i++;
 	}
 	return (ft_strdup(str));
@@ -36,7 +36,7 @@ char	*ft_extract_value(char *str)
 		if (str[i] == '=')
 		{
 			i++;
-			return (GC_collector(ft_substr(str, i, ft_strlen(str) - i), false));
+			return (gc_collector(ft_substr(str, i, ft_strlen(str) - i), false));
 		}
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:50:06 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/08 17:24:37 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 18:51:37 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ static int	ft_exec_child(t_node *node, t_content *minishell)
 	{
 		tmp_status = ft_check_redirection(node);
 		if (tmp_status != ENO_SUCCESS)
-			(ft_clean_ms(minishell),exit(ENO_GENERAL));
+			(ft_clean_ms(minishell), exit(ENO_GENERAL));
 		path_status = ft_get_path((node -> expand_args)[0], minishell);
 		if (path_status.err.no != ENO_SUCCESS)
 		{
 			tmp_status = ft_err_msg(path_status.err);
-			(ft_clean_ms(minishell),exit(tmp_status));
+			(ft_clean_ms(minishell), exit(tmp_status));
 		}
 		if (execve(path_status.path, node -> expand_args,
 				minishell->envir) == -1)

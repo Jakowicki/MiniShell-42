@@ -3,57 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_colector.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 16:44:46 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/08 17:31:07 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 18:56:27 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void del(void *to_free)
+static void	del(void *to_free)
 {
-    free(to_free);
-    to_free = NULL;
+	free(to_free);
+	to_free = NULL;
 }
 
-void	*GC_collector(void *list, bool free)
+void	*gc_collector(void *list, bool free)
 {
-    static t_list	*to_free;
+	static t_list	*to_free;
 
 	if (free)
-    	{
-        	ft_lstclear(&to_free, del);
-        	return(NULL);
-    	}
-    	else
-    	{
-        	ft_lstadd_back(&to_free, ft_lstnew(list));
-        	return(list);
-    	}
+	{
+		ft_lstclear(&to_free, del);
+		return (NULL);
+	}
+	else
+	{
+		ft_lstadd_back(&to_free, ft_lstnew(list));
+		return (list);
+	}
 }
 
-void     ft_clear_envlist(t_content *minishell)
+void	ft_clear_envlist(t_content *minishell)
 {
-    t_env   *envlist;
-    t_env   *envlist_free;
+	t_env	*envlist;
+	t_env	*envlist_free;
 
-    envlist = minishell->enviroment;
-    while (envlist)
-    {
-        envlist_free = envlist;
-        envlist = envlist->next;
-        free(envlist_free);
-    }
-    minishell->enviroment = NULL;
+	envlist = minishell->enviroment;
+	while (envlist)
+	{
+		envlist_free = envlist;
+		envlist = envlist->next;
+		free(envlist_free);
+	}
+	minishell->enviroment = NULL;
 }
 
-void    ft_clean_ms(t_content *minishell)
+void	ft_clean_ms(t_content *minishell)
 {
-    GC_collector(NULL, true);
-    ft_clear_parse(&minishell->parsed, minishell);
-    ft_clear_envlist(minishell);
-    rl_clear_history();
-    tcsetattr(STDIN_FILENO, TCSANOW, &minishell->terminal);
+	gc_collector(NULL, true);
+	ft_clear_parse(&minishell->parsed, minishell);
+	ft_clear_envlist(minishell);
+	rl_clear_history();
+	tcsetattr(STDIN_FILENO, TCSANOW, &minishell->terminal);
 }

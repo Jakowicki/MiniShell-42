@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_clr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:22:04 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/05 15:38:20 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 18:52:24 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_clear_io_list(t_io_node **lst)
 	}
 	*lst = NULL;
 }
-
 
 void	ft_clear_cmd_node(t_node *node)
 {

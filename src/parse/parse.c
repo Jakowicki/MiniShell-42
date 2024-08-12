@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:57:24 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/08 17:32:34 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 18:52:44 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_node	*ft_start_parse(t_content *minishell)
 		ft_get_next_token(minishell);
 		if (!minishell->free_token)
 		{
-			return (ft_parse_err(E_SYNTAXERR, minishell),left);
+			return (ft_parse_err(E_SYNTAXERR, minishell), left);
 		}
 		right = ft_start_parse(minishell);
 		if (!right)

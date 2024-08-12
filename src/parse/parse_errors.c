@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 12:57:44 by dtoszek           #+#    #+#             */
-/*   Updated: 2024/08/08 13:26:34 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 18:53:07 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_ex_parse_err(t_content *minishell)
 	t_token_type	token_type;
 	char			**types;
 
-	types = (char *[]) {"T_TEXT", "<", ">", "<<", ">>",
+	types = (char *[]){"T_TEXT", "<", ">", "<<", ">>",
 		"|", "NONE"};
 	type = minishell->parse_error.type;
 	(void)token_type;
