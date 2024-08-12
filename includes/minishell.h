@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:21:38 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/08/08 17:31:55 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 19:11:36 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,13 +162,13 @@ void				ft_clear_parse(t_node **parse, t_content *minishell);
 void				ft_recursive_clear_parse(t_node *node);
 void				ft_clear_cmd_node(t_node *node);
 void				ft_clear_io_list(t_io_node **lst);
-void    			ft_clean_ms(t_content *minishell);
+void				ft_clean_ms(t_content *minishell);
 void				ft_heredoc(t_io_node *io, int p[2], t_content *minishell);
-void 				*GC_collector(void *list, bool free);
+void				*gc_collector(void *list, bool free);
 char				*ft_extract_key(char *str);
 char				*ft_extract_value(char *str);
 bool				ft_env_entry_exists(char *key, t_content *minishell);
 void				ft_ex_parse_err(t_content *minishell);
 void				ft_parse_err(t_parse_err type, t_content *minishell);
-void     			ft_clear_envlist(t_content *minishell);
+void				ft_clear_envlist(t_content *minishell);
 #endif

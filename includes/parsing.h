@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtoszek <dtoszek@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mjakowic <mjakowic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:24:55 by mjakowic          #+#    #+#             */
-/*   Updated: 2024/08/08 13:35:00 by dtoszek          ###   ########.fr       */
+/*   Updated: 2024/08/08 19:10:50 by mjakowic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_node
 typedef struct s_parse_error
 {
 	t_parse_err	type;
-	char 		*str;
+	char		*str;
 }	t_parse_error;
 
 #endif
